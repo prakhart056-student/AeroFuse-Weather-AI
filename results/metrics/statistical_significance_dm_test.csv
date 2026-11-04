@@ -1,0 +1,8 @@
+Comparison,Mean_MAE_Reduction_DegC,DM_Statistic,p_value,Statistically_Significant_99pct
+AeroFuse_Net_v3 vs. 1D_CNN_ResNet,-0.1842,-40.007,< 0.0001,YES (p < 0.01)
+AeroFuse_Net_v3 vs. 2D_Spatial_ResNet,0.0351,6.166,< 0.0001,YES (p < 0.01)
+AeroFuse_Net_v3 vs. BiLSTM_Sequential,0.0127,2.325,0.02005,NO
+AeroFuse_Net_v3 vs. PatchTST_2026,-0.1727,-32.128,< 0.0001,YES (p < 0.01)
+AeroFuse_Net_v3 vs. iTransformer_2026,-0.2251,-42.67,< 0.0001,YES (p < 0.01)
+AeroFuse_Net_v3 vs. AeroFuse_Net_v1_Base,-0.0328,-6.524,< 0.0001,YES (p < 0.01)
+AeroFuse_Net_v3 vs. AeroFuse_Net_v2_Proposed,-0.134,-27.456,< 0.0001,YES (p < 0.01)

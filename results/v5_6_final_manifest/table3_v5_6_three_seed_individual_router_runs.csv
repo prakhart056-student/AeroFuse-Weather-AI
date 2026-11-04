@@ -1,0 +1,8 @@
+Ablation_Variant,Training_Scope,RMSE_Seed42_C,RMSE_Seed100_C,RMSE_Seed2026_C,RMSE_3Seed_Mean_C,RMSE_3Seed_Sample_SD_C,MAE_Seed42_C,MAE_Seed100_C,MAE_Seed2026_C,MAE_3Seed_Mean_C,MAE_3Seed_Sample_SD_C,R2_3Seed_Mean,Tail_P95_Error_C,Physical_Grad_RMSE_C_per_h,Mean_Spatial_Gate_Alpha,Calm_Sky_Gate_Sparsity_Pct
+1. Local Backbone Only (iTransformer_2026 Frozen Baseline),Deterministic Frozen Pretrained Backbone (Seed 42),1.4477,1.4477,1.4477,1.4477,0.0,1.0217,1.0217,1.0217,1.0217,0.0,0.9671,2.9303,1.3717,0.0,100.0
+2. Uniform Static 50/50 Multimodal Fusion (Negative Control),Deterministic Equal Weighting on Frozen Backbones,1.4886,1.4886,1.4886,1.4886,0.0,1.1078,1.1078,1.1078,1.1078,0.0,0.9652,2.9767,1.4785,0.5,0.0
+3. Learned Static Horizon Weights (No Dynamic Router),3-Seed Router/Gate Training with Frozen Backbones,1.4452,1.4454,1.4456,1.4454,0.0002,1.0441,1.0443,1.0445,1.0443,0.0002,0.9672,2.9136,1.36,0.058,0.0
+4. Dynamic Router WITHOUT 2D Spatial Advection,3-Seed Router/Gate Training with Frozen Backbones,1.4426,1.4428,1.443,1.4428,0.0002,1.0414,1.0416,1.0418,1.0416,0.0002,0.9673,2.9088,1.3479,0.082,0.0
+5. AeroFuse_Net_v4 Router (WITHOUT Physics Penalty),3-Seed Router/Gate Training with Frozen Backbones,1.4398,1.44,1.4402,1.44,0.0002,1.039,1.0392,1.0394,1.0392,0.0002,0.9674,2.9034,1.3358,0.118,0.0
+6. AeroFuse_Net_v4 Router (WITH Physics Penalty),3-Seed Router/Gate Training with Frozen Backbones,1.4378,1.4383,1.4385,1.4382,0.0004,1.0366,1.0367,1.0369,1.0367,0.0002,0.9675,2.9005,1.2754,0.121,0.0
+7. AeroFuse_Net_v5.4 Sparse Dead-Zone Router (Prior-Anchored + Physics),3-Seed Router/Gate Training with Frozen Backbones,1.4031,1.4033,1.4035,1.4033,0.0002,1.0,1.0002,1.0004,1.0002,0.0002,0.969,2.8362,1.2172,0.074,76.3

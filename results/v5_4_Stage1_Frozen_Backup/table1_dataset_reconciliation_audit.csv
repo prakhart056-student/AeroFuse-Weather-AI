@@ -1,0 +1,7 @@
+Pipeline_Stage,Row_or_Window_Count,Delta_Steps,Boundary_Isolation_Guarantee
+1. Raw Downloaded ERA5 Hourly Series (2019-01-01 00:00 to 2025-12-31 23:00),61368,0,"Complete 7-year (2,557-day) hourly record at Patiala (30.34N, 76.39E); 0 missing values."
+2. Contiguous Global Windowing (If sliced across whole series before splitting),61321,-47,"Loses 1x(SEQ_LEN + HORIZON - 1 = 47) terminal steps, but 47 windows straddle split boundaries."
+3. Strict Pre-Split Isolated Windowing (Protocol Used in AeroFuse Benchmark),61253,-115,Constructs 48h windows STRICTLY INSIDE each chronological partition after 24h lag warm-up (-115 steps total). Zero cross-split window overlap!
+   3a. Held-In Training Split Windows (70.05%),42909,0,2019-01-02 to 2023-11-24; StandardScaler fit strictly on Train partition.
+   3b. Chronological Validation Split Windows (14.97%),9172,0,"2023-11-26 to 2024-12-13; used for architecture selection, router gating, and static CQR."
+   3c. Held-Out Test Split Windows (14.97%),9172,0,2024-12-15 to 2025-12-31; 100% untouched out-of-sample evaluation period.

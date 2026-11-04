@@ -1,0 +1,4 @@
+Model,MAE_1h,MAE_6h,MAE_12h,MAE_24h,Overall_MAE,Overall_RMSE
+Naive_Persistence_Baseline,0.9257,4.6047,6.3184,1.1886,4.2263,5.469
+Diurnal_24h_Cycle_Baseline,1.1866,1.1866,1.1873,1.1886,1.1872,1.7341
+AeroFuse_Net_v4_Router,0.5033,0.9576,1.0942,1.2006,1.0366,1.4378

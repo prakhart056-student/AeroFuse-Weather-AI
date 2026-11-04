@@ -1,0 +1,21 @@
+Candidate_Model,Baseline_Model,Loss_Function,Horizon,HAC_Bandwidth_Lag,Mean_Loss_Diff_d_bar,CI95_Low,CI95_High,HLN_DM_Statistic,Cohens_d_Effect,p_value_raw,p_value_Holm_Corrected,Statistically_Superior_Model
+AeroFuse_v4_Router,iTransformer_2026 (Local Only),L2 Squared Error (RMSE),t+1h,1,0.06849,0.0543,0.08267,9.46,0.1127,3.8368e-21,3.8368e-20,AeroFuse Wins
+AeroFuse_v4_Router,iTransformer_2026 (Local Only),L2 Squared Error (RMSE),t+6h,5,0.04339,0.02592,0.06087,4.864,0.069,1.1696e-06,7.0174e-06,AeroFuse Wins
+AeroFuse_v4_Router,iTransformer_2026 (Local Only),L2 Squared Error (RMSE),t+12h,11,0.02279,0.00207,0.04351,2.153,0.0317,3.1362e-02,9.4087e-02,AeroFuse Wins
+AeroFuse_v4_Router,iTransformer_2026 (Local Only),L2 Squared Error (RMSE),t+24h,23,-0.0012,-0.0272,0.02481,-0.09,-0.0013,9.2841e-01,9.2841e-01,iTransformer Wins
+AeroFuse_v4_Router,iTransformer_2026 (Local Only),L2 Squared Error (RMSE),All 24h Aggregate,23,0.02855,0.00966,0.04744,2.954,0.1265,3.1427e-03,1.2571e-02,AeroFuse Wins
+AeroFuse_v4_Router,iTransformer_2026 (Local Only),L1 Absolute Error (MAE),t+1h,1,-0.00217,-0.0058,0.00146,-1.171,-0.0135,2.4157e-01,4.8313e-01,iTransformer Wins
+AeroFuse_v4_Router,iTransformer_2026 (Local Only),L1 Absolute Error (MAE),t+6h,5,-0.00914,-0.0134,-0.00488,-4.2,-0.0585,2.6885e-05,1.3442e-04,iTransformer Wins
+AeroFuse_v4_Router,iTransformer_2026 (Local Only),L1 Absolute Error (MAE),t+12h,11,-0.01762,-0.02222,-0.01302,-7.493,-0.1103,7.3833e-14,5.1683e-13,iTransformer Wins
+AeroFuse_v4_Router,iTransformer_2026 (Local Only),L1 Absolute Error (MAE),t+24h,23,-0.02135,-0.02592,-0.01678,-9.133,-0.1335,8.0840e-20,7.2756e-19,iTransformer Wins
+AeroFuse_v4_Router,iTransformer_2026 (Local Only),L1 Absolute Error (MAE),All 24h Aggregate,23,-0.01516,-0.01894,-0.01137,-7.823,-0.3198,5.7475e-15,4.5980e-14,iTransformer Wins
+AeroFuse_v5_SparseRouter,iTransformer_2026 (Local Only),L2 Squared Error (RMSE),t+1h,1,0.0985,0.087,0.11,16.793,0.2011,2.3424e-62,3.5136e-61,AeroFuse Wins
+AeroFuse_v5_SparseRouter,iTransformer_2026 (Local Only),L2 Squared Error (RMSE),t+6h,5,0.10111,0.08718,0.11505,14.215,0.2034,2.2339e-45,2.4573e-44,AeroFuse Wins
+AeroFuse_v5_SparseRouter,iTransformer_2026 (Local Only),L2 Squared Error (RMSE),t+12h,11,0.12056,0.10456,0.13656,14.749,0.2246,1.1196e-48,1.3435e-47,AeroFuse Wins
+AeroFuse_v5_SparseRouter,iTransformer_2026 (Local Only),L2 Squared Error (RMSE),t+24h,23,0.16014,0.13944,0.18085,15.121,0.2399,4.8099e-51,6.2528e-50,AeroFuse Wins
+AeroFuse_v5_SparseRouter,iTransformer_2026 (Local Only),L2 Squared Error (RMSE),All 24h Aggregate,23,0.12468,0.10861,0.14075,15.165,0.6826,2.5170e-51,3.5237e-50,AeroFuse Wins
+AeroFuse_v5_SparseRouter,iTransformer_2026 (Local Only),L1 Absolute Error (MAE),t+1h,1,0.01812,0.01692,0.01932,29.597,0.3665,6.0066e-184,1.2013e-182,AeroFuse Wins
+AeroFuse_v5_SparseRouter,iTransformer_2026 (Local Only),L1 Absolute Error (MAE),t+6h,5,0.01848,0.01703,0.01993,24.921,0.3688,1.0717e-132,1.7148e-131,AeroFuse Wins
+AeroFuse_v5_SparseRouter,iTransformer_2026 (Local Only),L1 Absolute Error (MAE),t+12h,11,0.02066,0.01906,0.02226,25.293,0.3788,1.7023e-136,2.8939e-135,AeroFuse Wins
+AeroFuse_v5_SparseRouter,iTransformer_2026 (Local Only),L1 Absolute Error (MAE),t+24h,23,0.02453,0.02273,0.02632,26.745,0.3917,8.4559e-152,1.5221e-150,AeroFuse Wins
+AeroFuse_v5_SparseRouter,iTransformer_2026 (Local Only),L1 Absolute Error (MAE),All 24h Aggregate,23,0.02094,0.01942,0.02247,26.886,1.2272,2.5390e-153,4.8242e-152,AeroFuse Wins

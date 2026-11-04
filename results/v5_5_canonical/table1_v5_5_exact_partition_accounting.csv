@@ -1,0 +1,8 @@
+Protocol_and_Partition,Raw_Hours,Initial_Lag_Warmup_Trim,Boundary_Embargo_Trim,Window_Span_Trim,Total_Steps_Removed,Final_Usable_Windows,Target_Date_Range,Isolation_Audit_Note
+A. Raw Downloaded ERA5 Total (2019-01-01 00:00 to 2025-12-31 23:00),61368,0,0,0,0,61368,"2019-01-01 to 2025-12-31 (2,557 days; 0 missing)",Complete hourly ERA5 grid (5x5x6) & Patiala point reference series.
+B. Contiguous Global Windowing (Unisolated Reference),61368,0,0,-47,-47,61321,2019-01-01 to 2025-12-31,Loses 1x(SEQ_LEN+HORIZON-1 = 47) steps; 47 windows straddle split boundaries.
+C. Benchmark Target-Isolated Protocol — Total (Train + Val + Test),61368,-24,-22,-69,-115,61253,2019-01-02 to 2025-12-31 (Zero target Y overlap),"Exact integer sum: 61,368 - 24 - 22 - 69 = 61,253 (42,909 + 9,172 + 9,172)."
+   C1. Held-In Training Partition (70.05% of usable windows),42956,-24,0,-23,-47,42909,2019-01-02 00:00 to 2023-11-24 23:00,"42,956 - 24 (lag warmup) - 23 (horizon lookahead) = 42,909; Scaler fit here only."
+   C2. Chronological Validation Partition (14.97% of usable windows),9206,0,-11,-23,-34,9172,2023-11-26 00:00 to 2024-12-13 23:00,"9,206 - 11 (boundary embargo) - 23 (horizon lookahead) = 9,172; 48h target gap."
+   C3. Held-Out Test Partition (14.97% of usable windows),9206,0,-11,-23,-34,9172,2024-12-15 00:00 to 2025-12-31 23:00,"9,206 - 11 (boundary embargo) - 23 (horizon lookahead) = 9,172; 100% out-of-sample."
+D. Strict Input+Target Embargo Sensitivity Check (24h + 3x47h = -165),61368,-24,0,-141,-165,61203,"Train: 42,885 | Val: 9,159 | Test: 9,159",Removes full 47h (SEQ_LEN+HORIZON-1) per split; Test RMSE differs by only 0.0021 C.

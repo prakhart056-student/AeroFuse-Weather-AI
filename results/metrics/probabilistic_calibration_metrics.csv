@@ -1,0 +1,3 @@
+Uncertainty_Method,Target_Coverage_Pct,Empirical_Coverage_PICP_Pct,Mean_Interval_Width_DegC,Mean_Pinball_Loss
+AeroFuse-Net v4 Raw Quantile Head (10th-90th),80.0,73.81,2.5016,0.194
+AeroFuse-Net v4 + Conformal Calibration (CQR),80.0,58.15,1.7351,0.2123

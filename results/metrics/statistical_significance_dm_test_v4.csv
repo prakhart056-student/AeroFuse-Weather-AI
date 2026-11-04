@@ -1,0 +1,9 @@
+Comparison,MAE_Gain_DegC,DM_Statistic,p_value,Significant_99pct
+AeroFuse_Net_v4_Router vs. iTransformer_2026,-0.0149,-5.773,< 0.0001,NO
+AeroFuse_Net_v4_Router vs. 1D_CNN_ResNet,+0.0260,11.585,< 0.0001,YES (p < 0.01)
+AeroFuse_Net_v4_Router vs. PatchTST_2026,+0.0375,17.147,< 0.0001,YES (p < 0.01)
+AeroFuse_Net_v4_Router vs. AeroFuse_Net_v2_Proposed,+0.0762,24.101,< 0.0001,YES (p < 0.01)
+AeroFuse_Net_v4_Router vs. AeroFuse_Net_v1_Base,+0.1773,50.707,< 0.0001,YES (p < 0.01)
+AeroFuse_Net_v4_Router vs. AeroFuse_Net_v3_Final,+0.2102,47.496,< 0.0001,YES (p < 0.01)
+AeroFuse_Net_v4_Router vs. BiLSTM_Sequential,+0.2228,56.246,< 0.0001,YES (p < 0.01)
+AeroFuse_Net_v4_Router vs. 2D_Spatial_ResNet,+0.2453,54.198,< 0.0001,YES (p < 0.01)

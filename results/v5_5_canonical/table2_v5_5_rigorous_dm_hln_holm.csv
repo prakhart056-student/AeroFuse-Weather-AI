@@ -1,0 +1,21 @@
+Candidate_Model,Baseline_Model,Explicit_Loss_Differential_Formula,Horizon,HAC_Bandwidth_Lag_h_minus_1,Mean_Loss_Diff_d_bar,CI95_Low,CI95_High,HLN_DM_Statistic,Cohens_d_Effect,p_value_raw,Holm_Family_Multiplier_M20,p_value_Holm_Corrected,Statistically_Superior_at_alpha_0_05
+AeroFuse_v4_Router (Seed 42),iTransformer_2026,L2 MSE Differential d_t = e_base^2 - e_cand^2 (C^2),t+1h,0,0.06849,0.05482,0.08216,9.819,0.1127,1.214e-22,10,1.214e-21,Candidate (AeroFuse) Superior
+AeroFuse_v4_Router (Seed 42),iTransformer_2026,L2 MSE Differential d_t = e_base^2 - e_cand^2 (C^2),t+6h,5,0.04339,0.02592,0.06087,4.864,0.069,1.1696e-06,6,7.0176e-06,Candidate (AeroFuse) Superior
+AeroFuse_v4_Router (Seed 42),iTransformer_2026,L2 MSE Differential d_t = e_base^2 - e_cand^2 (C^2),t+12h,11,0.02279,0.00207,0.04351,2.153,0.0317,0.031362,3,0.094086,No Significant Difference (Tie)
+AeroFuse_v4_Router (Seed 42),iTransformer_2026,L2 MSE Differential d_t = e_base^2 - e_cand^2 (C^2),t+24h,23,-0.0012,-0.0272,0.02481,-0.09,-0.0013,0.92841,1,0.92841,No Significant Difference (Tie)
+AeroFuse_v4_Router (Seed 42),iTransformer_2026,L2 24h Window Mean MSE Differential (C^2),All 24h Mean,23,0.02855,0.00966,0.04744,2.954,0.1265,0.0031427,4,0.0125708,Candidate (AeroFuse) Superior
+AeroFuse_v4_Router (Seed 42),iTransformer_2026,L1 MAE Differential d_t = |e_base| - |e_cand| (C),t+1h,0,-0.00217,-0.00567,0.00133,-1.215,-0.0135,0.2244,2,0.4488,No Significant Difference (Tie)
+AeroFuse_v4_Router (Seed 42),iTransformer_2026,L1 MAE Differential d_t = |e_base| - |e_cand| (C),t+6h,5,-0.00914,-0.0134,-0.00488,-4.2,-0.0585,2.6885e-05,5,0.000134425,Baseline (iTransformer) Superior
+AeroFuse_v4_Router (Seed 42),iTransformer_2026,L1 MAE Differential d_t = |e_base| - |e_cand| (C),t+12h,11,-0.01762,-0.02222,-0.01302,-7.493,-0.1103,7.3833e-14,7,5.16831e-13,Baseline (iTransformer) Superior
+AeroFuse_v4_Router (Seed 42),iTransformer_2026,L1 MAE Differential d_t = |e_base| - |e_cand| (C),t+24h,23,-0.02135,-0.02592,-0.01678,-9.133,-0.1335,8.084e-20,9,7.2756e-19,Baseline (iTransformer) Superior
+AeroFuse_v4_Router (Seed 42),iTransformer_2026,L1 24h Window Mean MAE Differential (C),All 24h Mean,23,-0.01516,-0.01894,-0.01137,-7.823,-0.3198,5.7475e-15,8,4.598e-14,Baseline (iTransformer) Superior
+AeroFuse_v5.4_SparseRouter,iTransformer_2026,L2 MSE Differential d_t = e_base^2 - e_cand^2 (C^2),t+1h,0,0.0985,0.08742,0.10958,17.43,0.2011,2.15e-67,15,3.225e-66,Candidate (AeroFuse) Superior
+AeroFuse_v5.4_SparseRouter,iTransformer_2026,L2 MSE Differential d_t = e_base^2 - e_cand^2 (C^2),t+6h,5,0.10111,0.08718,0.11505,14.215,0.2034,2.2339e-45,11,2.45729e-44,Candidate (AeroFuse) Superior
+AeroFuse_v5.4_SparseRouter,iTransformer_2026,L2 MSE Differential d_t = e_base^2 - e_cand^2 (C^2),t+12h,11,0.12056,0.10456,0.13656,14.749,0.2246,1.1196e-48,12,1.34352e-47,Candidate (AeroFuse) Superior
+AeroFuse_v5.4_SparseRouter,iTransformer_2026,L2 MSE Differential d_t = e_base^2 - e_cand^2 (C^2),t+24h,23,0.16014,0.13944,0.18085,15.121,0.2399,4.8099e-51,13,6.252869999999999e-50,Candidate (AeroFuse) Superior
+AeroFuse_v5.4_SparseRouter,iTransformer_2026,L2 24h Window Mean MSE Differential (C^2),All 24h Mean,23,0.12468,0.10861,0.14075,15.165,0.6826,2.517e-51,14,3.5238e-50,Candidate (AeroFuse) Superior
+AeroFuse_v5.4_SparseRouter,iTransformer_2026,L1 MAE Differential d_t = |e_base| - |e_cand| (C),t+1h,0,0.01812,0.01696,0.01928,30.72,0.3665,1.42e-197,20,2.84e-196,Candidate (AeroFuse) Superior
+AeroFuse_v5.4_SparseRouter,iTransformer_2026,L1 MAE Differential d_t = |e_base| - |e_cand| (C),t+6h,5,0.01848,0.01703,0.01993,24.921,0.3688,1.0717e-132,16,1.71472e-131,Candidate (AeroFuse) Superior
+AeroFuse_v5.4_SparseRouter,iTransformer_2026,L1 MAE Differential d_t = |e_base| - |e_cand| (C),t+12h,11,0.02066,0.01906,0.02226,25.293,0.3788,1.7023e-136,17,2.89391e-135,Candidate (AeroFuse) Superior
+AeroFuse_v5.4_SparseRouter,iTransformer_2026,L1 MAE Differential d_t = |e_base| - |e_cand| (C),t+24h,23,0.02453,0.02273,0.02632,26.745,0.3917,8.4559e-152,18,1.5220620000000002e-150,Candidate (AeroFuse) Superior
+AeroFuse_v5.4_SparseRouter,iTransformer_2026,L1 24h Window Mean MAE Differential (C),All 24h Mean,23,0.02094,0.01942,0.02247,26.886,1.2272,2.539e-153,19,4.824100000000001e-152,Candidate (AeroFuse) Superior

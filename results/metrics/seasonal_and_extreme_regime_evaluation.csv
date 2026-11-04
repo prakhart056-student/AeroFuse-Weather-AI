@@ -1,0 +1,9 @@
+Weather_Regime_Patiala,Sample_Windows,AeroFuse_v4_RMSE,iTransformer_RMSE,1D_CNN_RMSE,Best_Model_in_Regime
+Winter_Fog_Regime (Dec-Feb),2559,1.379,1.4125,1.3645,iTransformer_2026
+Summer_Heatwave_Regime (Apr-Jun),2184,1.8714,1.8766,1.8607,iTransformer_2026
+Monsoon_Convective_Regime (Jul-Sep),2208,1.0754,1.1254,1.1199,AeroFuse_Net_v4
+Post_Monsoon_Transition (Oct-Nov),1464,1.1923,1.1214,1.1977,iTransformer_2026
+Daytime_Solar_Hours (08:00-18:00 UTC),4201,1.4405,1.4619,1.449,AeroFuse_Net_v4
+Nighttime_Radiative_Cooling,4958,1.4355,1.4355,1.4399,AeroFuse_Net_v4
+Extreme_Heat_Events (>38°C),912,1.974,1.8983,1.9133,iTransformer_2026
+Rapid_Front_Transitions (|dT/6h| > 6°C),2547,1.504,1.4882,1.504,iTransformer_2026

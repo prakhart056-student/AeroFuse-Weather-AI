@@ -1,0 +1,10 @@
+{
+  "N_OOS_Windows": 6364,
+  "CNN_Feature_Energy_vs_Horizontal_Temp_Gradient_r": -0.2816,
+  "CNN_Feature_Energy_vs_Horizontal_Temp_Gradient_p": 0.0,
+  "CNN_Feature_Energy_vs_Horizontal_Pressure_Gradient_r": -0.2276,
+  "CNN_Feature_Energy_vs_Horizontal_Pressure_Gradient_p": 0.0,
+  "Sparse_Gate_Alpha_vs_6h_Temp_Volatility_r": -0.3782,
+  "Calm_Hours_Mean_Alpha": 0.6286,
+  "Volatile_Hours_Mean_Alpha": 0.3483
+}

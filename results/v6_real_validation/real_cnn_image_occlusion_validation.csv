@@ -1,0 +1,7 @@
+Perturbation_Test,All_OOS_RMSE_C,Delta_All_RMSE_mC,Volatile_Regime_RMSE_C,Delta_Volatile_RMSE_mC,Mean_Gate_Alpha
+Unperturbed 5x5 Atmospheric Image (Reference),1.39481,0.0,1.48387,0.0,0.5636
+"Center Cell Occluded (Patiala 30.34N, 76.39E)",1.39456,-0.249,1.48378,-0.095,0.5669
+"NE Shivalik Foothills Occluded (30.84N, 77.39E)",1.39428,-0.529,1.48567,1.799,0.5666
+"NW Amritsar Plains Occluded (31.34N, 75.39E)",1.3945,-0.315,1.48359,-0.287,0.561
+"SW Rajasthan Border Occluded (29.34N, 75.39E)",1.39478,-0.033,1.48355,-0.323,0.562
+Full 5x5 Image Shuffled Across Days (Spatial Destruction),1.4131,18.284,1.50674,22.868,0.564

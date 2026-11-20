@@ -1,0 +1,4 @@
+Model_Name,OOS_Windows_N,OOS_MAE_C,OOS_RMSE_C,OOS_P95_AbsErr_C,OOS_P99_AbsErr_C,OOS_Grad_RMSE_C_per_h
+iTransformer_2026 (Local Only),6364,0.9872,1.4229,2.7486,5.0421,0.6671
+AeroFuse_Net_v4 (Soft Spatial Router),6364,1.0059,1.4177,2.6695,4.7987,0.6523
+"AeroFuse_Net_v6_Real (CNN-Image Sparse Dead-Zone Router, Seed 42)",6364,0.9682,1.3948,2.6649,4.9,0.6591

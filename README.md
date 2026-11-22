@@ -16,7 +16,7 @@ Site: Patiala, Punjab (30.34 °N, 76.39 °E) · Data: hourly ERA5-based reanalys
 
 Hardware: HP Omen 16, RTX 4050 (6 GB), PyTorch, free data only
 
-**Status of the numbers in this README.** Everything from the baselines through AeroFuse-Net v1–v4 and the v6_real validation comes from trained models and saved predictions and can be regenerated from `results/`. The earlier "v5" headline numbers were not produced by a trained model and are withdrawn (see Section 17). Do not cite them. **Added 22 November 2026:** Sections 19–22 describe the v7 cross-city validation, the ONNX export, the second dashboard and the deployment workflow. The v7 numbers come from `results/v7_cross_city/*.csv` and `*.json` written by `run_v7_cross_city_validation.py`; the two headline figures quoted in Section 19.6 were read off a dashboard card and have not been re-derived here, so check them against the CSV before citing. The v7 models are newly trained residual models and are **not** the same networks as v1–v6, so v7 numbers must not be mixed into the Section 7 tables.
+**Status of the numbers in this README.** Everything from the baselines through AeroFuse-Net v1–v4 and the v6_real validation comes from trained models and saved predictions and can be regenerated from `results/`. The earlier "v5" headline numbers were not produced by a trained model and are withdrawn (see Section 17). Do not cite them. **Added 22 November 2026:** Sections 18–21 describe the v7 cross-city validation, the ONNX export, the second dashboard and the deployment workflow. The v7 numbers come from `results/v7_cross_city/*.csv` and `*.json` written by `run_v7_cross_city_validation.py`; the two headline figures quoted in Section 18.6 were read off a dashboard card and have not been re-derived here, so check them against the CSV before citing. The v7 models are newly trained residual models and are **not** the same networks as v1–v6, so v7 numbers must not be mixed into the Section 7 tables.
 
 ## Contents
 
@@ -37,11 +37,11 @@ Hardware: HP Omen 16, RTX 4050 (6 GB), PyTorch, free data only
 15. Roadmap
 16. Stage 2 plan: scaling to all of India
 17. Withdrawn v5 results
-18. Data attribution and citation
-19. Zero-shot cross-city validation (v7) — *added 22 Nov 2026*
-20. Live ONNX inference (v7.1 export) — *added 22 Nov 2026*
-21. Second dashboard (v7.2) — *added 22 Nov 2026*
-22. Deployment and version control — *added 22 Nov 2026*
+18. Zero-shot cross-city validation (v7) — *added 22 Nov 2026*
+19. Live ONNX inference (v7.1 export) — *added 22 Nov 2026*
+20. Second dashboard (v7.2) — *added 22 Nov 2026*
+21. Deployment and version control — *added 22 Nov 2026*
+22. Data attribution and citation
 
 ---
 
@@ -58,12 +58,12 @@ Hardware: HP Omen 16, RTX 4050 (6 GB), PyTorch, free data only
 | Negative result | Naive joint CNN + temporal fusion (v1, v3) is worse than a good local-only model (MAE 1.2139 and 1.2468 vs 1.0217). Freezing the experts and routing between them (v4) removes the penalty. |
 | Uncertainty | Raw 10–90 % quantile band covers 73.05 %. Per-horizon rolling 30-day CQR brings coverage to 79.4 % (width 3.24 °C). |
 | New today (v6_real) | A real 2D-CNN weather-image encoder driving a sparse dead-zone gate, trained 3 seeds on saved predictions. On the out-of-sample part of the test year it is significantly better than both iTransformer and v4 by Bartlett-HAC HLN-DM, but the gain is small and has caveats (Section 8). |
-| New (v7, 22 Nov 2026) | A fresh set of residual models (iTransformer, 1D-CNN, 2D-CNN and a 3-expert router) trained **only on Patiala 2019–2023**, then evaluated with no fine-tuning on the full year 2025 for 10 unseen Indian cities (Section 19). Per-city results are in `results/v7_cross_city/v7_cross_city_benchmark.csv`. |
-| New (v7.1/v7.2) | The four v7 networks are exported to one ~1.1 MB CPU ONNX graph and run live in a second dashboard for the next 24 hours; days 2–7 remain operational NWP (Sections 20–21). The live curve is not yet scored against realised temperatures. |
+| New (v7, 22 Nov 2026) | A fresh set of residual models (iTransformer, 1D-CNN, 2D-CNN and a 3-expert router) trained **only on Patiala 2019–2023**, then evaluated with no fine-tuning on the full year 2025 for 10 unseen Indian cities (Section 18). Per-city results are in `results/v7_cross_city/v7_cross_city_benchmark.csv`. |
+| New (v7.1/v7.2) | The four v7 networks are exported to one ~1.1 MB CPU ONNX graph and run live in a second dashboard for the next 24 hours; days 2–7 remain operational NWP (Sections 19–20). The live curve is not yet scored against realised temperatures. |
 
 **Honest one-line summary:** AeroFuse-Net v4 matches the best single model, with better RMSE, lighter tails and a clear monsoon gain. It is not a clear overall winner.
 
-**Honest one-line summary of the v7 addition:** zero-shot transfer from one site to ten others works mechanically (the pipeline runs, results exist per city), but the v7 router is nearly a fixed mixture of its experts (Section 19.5), so any gain over a local model should be read as ensemble-like, not as proof that spatial routing transfers.
+**Honest one-line summary of the v7 addition:** zero-shot transfer from one site to ten others works mechanically (the pipeline runs, results exist per city), but the v7 router is nearly a fixed mixture of its experts (Section 18.5), so any gain over a local model should be read as ensemble-like, not as proof that spatial routing transfers.
 
 ## 2. Research problem and questions
 
@@ -78,7 +78,7 @@ Hardware: HP Omen 16, RTX 4050 (6 GB), PyTorch, free data only
 | RQ3 | Why does naive fusion fail and what fixes it? | Joint fusion hurts; freezing the experts removes the penalty. Gradient competition is a plausible diagnosis, not a measured one (gradient norms were not logged). | v3 MAE 1.2468 vs v4 1.0366. |
 | RQ4 | Can the 80 % quantile band be calibrated? | Yes, marginally. | 73.05 % raw → 79.4 % rolling CQR. Coverage inside individual regimes is untested. |
 | RQ5 | Does a sparse dead-zone gate conditioned on CNN image features help? | Weak evidence, small effect. Significant on an out-of-sample split, but trained on test-year data and not yet ablated against a CNN-free gate. | Section 8. |
-| RQ6 *(added 22 Nov 2026)* | Can models trained only on Patiala be applied to other Indian climates without fine-tuning, and does the grid-conditioned router help there? | Per-city zero-shot results exist; whether the router adds anything beyond its experts is not established (bounded router, no grid-free ablation, anomaly-channel caveats). | Section 19. |
+| RQ6 *(added 22 Nov 2026)* | Can models trained only on Patiala be applied to other Indian climates without fine-tuning, and does the grid-conditioned router help there? | Per-city zero-shot results exist; whether the router adds anything beyond its experts is not established (bounded router, no grid-free ablation, anomaly-channel caveats). | Section 18. |
 
 ## 3. What is real and what is withdrawn
 
@@ -93,7 +93,7 @@ Hardware: HP Omen 16, RTX 4050 (6 GB), PyTorch, free data only
 | v6_real CNN-image router, 3 seeds, HLN-DM, occlusion, feature maps | Real | src/evaluation/run_v6_real_cnn_image_and_deadzone_validation.py (no hard-coded metrics). |
 | Live 7-day curve in the dashboard | Live NWP forecast (Open-Meteo, MET Norway fallback), not an AeroFuse-Net output | See Section 11. |
 | v5.x tables (sparse router, 3-seed ablation, Holm p-values, occlusion table, 24-horizon CQR table, synthetic forecast curves) | Withdrawn | Generated from fitted or typed-in values. See Section 17. |
-| v7 zero-shot cross-city benchmark (10 cities + Patiala reference) *(added)* | Real (trained models, scored windows) | `src/evaluation/run_v7_cross_city_validation.py` → `results/v7_cross_city/`. Headline figures quoted in Section 19.6 not independently re-derived. |
+| v7 zero-shot cross-city benchmark (10 cities + Patiala reference) *(added)* | Real (trained models, scored windows) | `src/evaluation/run_v7_cross_city_validation.py` → `results/v7_cross_city/`. Headline figures quoted in Section 18.6 not independently re-derived. |
 | v7 ONNX export and parity check *(added)* | Real | `src/evaluation/export_v7_1_onnx_safe.py` asserts max abs difference < 1e-4 against the original PyTorch models. |
 | Live next-24 h neural curve in dashboard v7.2 *(added)* | Real model inference, **unscored** | Frozen ONNX models on live API inputs. No live verification against realised temperatures yet. |
 | 80 % band drawn around the live v7.2 neural curve *(added)* | Borrowed calibration | Half-widths come from v4's rolling CQR (Section 7.6); v7 has no quantile heads, so the band is not calibrated for v7. |
@@ -167,7 +167,7 @@ Each version reacted to a measured failure. Overall test MAE / RMSE in °C on 9,
 | v3 | Joint end-to-end training from scratch, zero-initialised spatial gate, advection features (grid − centre cell) | 1.2468 / 1.6440 | Worse (+12.0 % MAE). Diagnosis: gradient competition and a gate that starts at zero (plausible, not measured) |
 | v4 Router | Four frozen experts (iTransformer, 1D-CNN, PatchTST, 2D ResNet) + a router that outputs 24 horizon-specific weights per expert from the latest grid, its advection signal and the latest local features | 1.0366 / 1.4378 | Best RMSE and R² (0.9674); ties iTransformer overall |
 | v6_real | Real 2D-CNN weather-image encoder + sparse dead-zone gate blending iTransformer and v4 | see Section 8 | First real implementation of the dead-zone idea |
-| v7 *(added)* | Separate residual re-implementation (iTransformer, 1D-CNN, 2D-CNN experts + 3-expert router) trained on Patiala only for cross-city transfer | see Section 19 | Not the same networks as v1–v6; not comparable with the table above |
+| v7 *(added)* | Separate residual re-implementation (iTransformer, 1D-CNN, 2D-CNN experts + 3-expert router) trained on Patiala only for cross-city transfer | see Section 18 | Not the same networks as v1–v6; not comparable with the table above |
 
 ### v4 router details
 
@@ -356,7 +356,7 @@ The project went through five stages (a sixth was added on 22 November 2026, see
 | Stage 2: Diagnostics and calibration | HAC-corrected Diebold–Mariano tests, block bootstrap, regime and tail analysis, calm vs volatile split, per-horizon rolling CQR | v4 and iTransformer tied overall; v4 leads in the monsoon and the tails; raw band covered 73.05 %, rolling CQR 79.4 % | Sections 7.2–7.6 |
 | Stage 3: Audit and retraction | Audited the v5.x scripts and dashboards, kept the verified timestamp reconciliation, withdrew every v5.x number | No v5 figure may be cited | Section 17 |
 | Stage 4: v6_real | First real trained CNN-image encoder with a sparse dead-zone gate: 3 seeds, chronological dev / embargo / OOS split | Small but significant OOS gain over iTransformer and v4 (seed 42), with caveats | Section 8 |
-| Stage 5: v7 cross-city and live inference *(added 22 Nov 2026)* | Trained residual models on Patiala only, fetched full-year 2025 data for 10 unseen Indian cities, scored them zero-shot; exported the models to ONNX; built a second dashboard with live next-24 h inference and animated weather skies | Per-city zero-shot benchmark in `results/v7_cross_city/`; ~1.1 MB ONNX model; live neural curve (unscored) | Sections 19–21 |
+| Stage 5: v7 cross-city and live inference *(added 22 Nov 2026)* | Trained residual models on Patiala only, fetched full-year 2025 data for 10 unseen Indian cities, scored them zero-shot; exported the models to ONNX; built a second dashboard with live next-24 h inference and animated weather skies | Per-city zero-shot benchmark in `results/v7_cross_city/`; ~1.1 MB ONNX model; live neural curve (unscored) | Sections 18–20 |
 
 ### 9.2 What each model taught
 
@@ -375,15 +375,15 @@ The project went through five stages (a sixth was added on 22 November 2026, see
 | AeroFuse v3 | Joint training from scratch with a zero-initialised spatial gate and advection features: +12.0 % MAE. Gradient competition is a plausible diagnosis, not a measured one. |
 | AeroFuse v4 Router | Frozen experts plus a grid-conditioned, horizon-wise router: best RMSE and R², −14.6 % MAE and −9.2 % RMSE vs v1, 31.3 % squared-error skill vs the diurnal rule; tied with iTransformer overall. |
 | v6_real | Dead-zone gate on CNN image features and expert disagreement: small OOS gain, no CNN-free control yet. |
-| v7 *(added)* | Residual formulation plus a spatial anomaly image makes one-site training transferable in a mechanical sense; whether the router adds value beyond its experts is untested (Section 19.5). |
+| v7 *(added)* | Residual formulation plus a spatial anomaly image makes one-site training transferable in a mechanical sense; whether the router adds value beyond its experts is untested (Section 18.5). |
 
 ### 9.3 Process lessons
 
 - **Correct for autocorrelation.** Uncorrected tests gave p < 0.0001 for the v4 vs iTransformer MAE difference; the Bartlett-HAC HLN-DM test and the block bootstrap removed that significance (Section 7.2).
 - **Recompute every number from saved predictions.** The 58.15 % CQR coverage bug (Section 7.6) and the v5 retraction (Section 17) were both caught by re-deriving results from saved files.
 - **Report the losses too.** v1 and v3, extreme heat, rapid fronts, calm hours and t+1 h are all places where the grid did not help, and they are what motivated the router and the dead-zone gate.
-- **Check the exporter, not just the model** *(added)*. PyTorch's fused transformer fast path (`aten::_transformer_encoder_layer_fwd`) cannot be exported to ONNX opset 17; rewriting the encoder layer with explicit attention and asserting numerical parity fixed it (Section 20).
-- **Train/serve consistency** *(added)*. Features built one way in training and another way at serving time silently change model inputs; see the anomaly-channel caveat in Section 19.4.
+- **Check the exporter, not just the model** *(added)*. PyTorch's fused transformer fast path (`aten::_transformer_encoder_layer_fwd`) cannot be exported to ONNX opset 17; rewriting the encoder layer with explicit attention and asserting numerical parity fixed it (Section 19).
+- **Train/serve consistency** *(added)*. Features built one way in training and another way at serving time silently change model inputs; see the anomaly-channel caveat in Section 18.4.
 
 ## 10. Scientific conclusions
 
@@ -399,7 +399,7 @@ Four conclusions the saved results support, each stated with the limits that go 
 
 Taken together, this is a single-site, single-test-year, reanalysis-on-reanalysis baseline with honest statistics. Section 16 describes how it is planned to be extended.
 
-**Addendum (22 November 2026).** A reduced version of that extension has now been run (Section 19): the pipeline can score Patiala-trained models on ten unseen cities without fine-tuning. What this supports is that the pipeline transfers mechanically and produces per-city results. It does not yet support a claim that grid-conditioned routing is what transfers, because the v7 router is bounded close to a fixed mixture, there is no grid-free ablation for v7, and the anomaly-channel normalisation has the caveats listed in Section 19.4.
+**Addendum (22 November 2026).** A reduced version of that extension has now been run (Section 18): the pipeline can score Patiala-trained models on ten unseen cities without fine-tuning. What this supports is that the pipeline transfers mechanically and produces per-city results. It does not yet support a claim that grid-conditioned routing is what transfers, because the v7 router is bounded close to a fixed mixture, there is no grid-free ablation for v7, and the anomaly-channel normalisation has the caveats listed in Section 18.4.
 
 ## 11. Dashboard
 
@@ -420,7 +420,7 @@ Tabs 1–2 need an internet connection. The live fetcher calls the Open-Meteo AP
 | Tab 3: 13-Model & Regime Benchmarks | Benchmark table, 8 regimes, calm vs volatile, v6_real OOS comparison | results/metrics/*.csv and results/v6_real_validation/*.csv (calm vs volatile table is typed in from the verified recomputation) |
 | Tab 4: Statistical Tests & Findings | v4 vs iTransformer HLN-DM, rolling CQR table, v6_real HLN-DM, conclusion | HLN-DM and CQR tables for v4 are typed-in copies of the verified recomputation; v6_real table is read from CSV |
 
-> **Added 22 November 2026:** a second dashboard, `app/dashboard_v7_2_live_onnx.py`, adds live ONNX neural inference, an 11-city live weather wall, the cross-city validation tab and animated weather skies. It is described in Section 21. The Tab 1 notes below describe the original dashboard.
+> **Added 22 November 2026:** a second dashboard, `app/dashboard_v7_2_live_onnx.py`, adds live ONNX neural inference, an 11-city live weather wall, the cross-city validation tab and animated weather skies. It is described in Section 20. The Tab 1 notes below describe the original dashboard.
 
 ### How to read Tab 1 correctly
 
@@ -479,7 +479,7 @@ streamlit run app/dashboard_final_patiala.py
 .\.venv\Scripts\streamlit.exe run app\dashboard_v7_2_live_onnx.py
 ```
 
-Step 3 skips work already done: Patiala checkpoints in `models/v7_cross_city/` and city downloads in `data/raw/cross_city_2025/` are reused if present. The download is paced to be polite to the Open-Meteo archive API and resumes from the disk cache if interrupted. Outputs are listed in Section 19.3.
+Step 3 skips work already done: Patiala checkpoints in `models/v7_cross_city/` and city downloads in `data/raw/cross_city_2025/` are reused if present. The download is paced to be polite to the Open-Meteo archive API and resumes from the disk cache if interrupted. Outputs are listed in Section 18.3.
 
 ## 13. Repository layout
 
@@ -491,7 +491,7 @@ AeroFuse-Weather-AI/
 │   ├── dashboard_final_patiala.py        # original live dashboard (Section 11)
 │   ├── dashboard_v7_india_pro.py         # intermediate v7 glassmorphic dashboard (superseded)
 │   ├── dashboard_v7_1_india_live_sky.py  # intermediate v7.1 animated-sky dashboard, no ONNX (superseded)
-│   └── dashboard_v7_2_live_onnx.py       # second dashboard, current (Section 21)
+│   └── dashboard_v7_2_live_onnx.py       # second dashboard, current (Section 20)
 ├── data/
 │   ├── raw/                              # git-ignored (spatial_grid_tensor.npz, hourly pulls)
 │   │   └── cross_city_2025/              # git-ignored: cached 2025 city downloads (v7)
@@ -502,8 +502,8 @@ AeroFuse-Weather-AI/
 ├── src/
 │   └── evaluation/
 │       ├── run_v6_real_cnn_image_and_deadzone_validation.py
-│       ├── run_v7_cross_city_validation.py   # v7 zero-shot cross-city (Section 19)
-│       ├── export_v7_1_onnx_safe.py          # working ONNX exporter (Section 20)
+│       ├── run_v7_cross_city_validation.py   # v7 zero-shot cross-city (Section 18)
+│       ├── export_v7_1_onnx_safe.py          # working ONNX exporter (Section 19)
 │       └── export_v7_to_onnx.py              # first exporter, FAILS on opset 17; superseded
 ├── results/
 │   ├── metrics/                          # *.npz saved predictions, benchmark_comparison.csv,
@@ -513,7 +513,7 @@ AeroFuse-Weather-AI/
 │   └── figures/
 │       ├── v6_real_validation/
 │       └── v7_cross_city/                # fig_v7_india_zero_shot_generalization.png
-├── requirements.txt                      # cloud deps: no PyTorch (Section 22)
+├── requirements.txt                      # cloud deps: no PyTorch (Section 21)
 └── README.md
 ```
 
@@ -539,7 +539,7 @@ State these first when presenting.
 **Added 22 November 2026 (v7 cross-city, ONNX and second dashboard):**
 
 - Cross-city targets are still ERA5-based reanalysis for every city, so "unseen city" means an unseen location in the same product, not independent station data.
-- The v7 spatial image has two anomaly blocks. The first (centre-relative) is causal. The second subtracts a per-cell **time-mean computed over the whole evaluated period** (all 7 years for Patiala, calendar 2025 for each city), which is a non-causal normalisation that also touches the test period. In the live dashboard the same block is computed by subtracting the **spatial mean of the current 5 × 5 snapshot** instead. Training and serving therefore use different definitions for those six channels (Section 19.4).
+- The v7 spatial image has two anomaly blocks. The first (centre-relative) is causal. The second subtracts a per-cell **time-mean computed over the whole evaluated period** (all 7 years for Patiala, calendar 2025 for each city), which is a non-causal normalisation that also touches the test period. In the live dashboard the same block is computed by subtracting the **spatial mean of the current 5 × 5 snapshot** instead. Training and serving therefore use different definitions for those six channels (Section 18.4).
 - The v7 router is bounded: softmax of priors (1.25, 0.85, −0.40) with a ±0.20 tanh adjustment is about a 54 % / 36 % / 10 % mixture of iTransformer / 1D-CNN / 2D-CNN (arithmetic from the code, not a measured weight). It is close to a fixed ensemble, so gains over iTransformer cannot be credited to spatial routing without a grid-free ablation.
 - The v7 router is trained on Patiala's validation split, the same split used to pick the expert checkpoints.
 - v7 uses one seed, one test year (2025) and per-city tests that are not independent of each other (all cities see the same weather days); do not pool p-values.
@@ -565,7 +565,7 @@ Roughly in priority order:
 8. Fix labels: IST for "daytime", assign March to a season, correct the "Best model" column, "input-gradient saliency", "derivative-matching loss".
 9. For a paper: NWP or climatology-plus-persistence baseline, a larger grid (9 × 9 or more) with pressure levels, a second site, more than one test year. Stage-2 production upgrades:
    - **Data and baselines:** independent physical station targets (Meteostat or IMD observations) instead of reanalysis targets, plus an archived ECMWF/GFS NWP baseline with a model that learns the NWP residual.
-   - **Deployment and QA:** CPU ONNX export for live inference *(done in v7.1, see Section 20)*, automated daily GitHub Actions verification, and pytest leakage tests (chronological split, train-only scalers, no target crossing a split boundary).
+   - **Deployment and QA:** CPU ONNX export for live inference *(done in v7.1, see Section 19)*, automated daily GitHub Actions verification, and pytest leakage tests (chronological split, train-only scalers, no target crossing a split boundary).
 10. Add the two study-guide PDFs under docs/.
 
 **Added 22 November 2026:**
@@ -574,12 +574,12 @@ Roughly in priority order:
 12. Log the live neural forecasts and score them against realised temperatures to give the live curve a measured skill against the NWP reference.
 13. Calibrate the live band on v7 forecasts (quantile heads or CQR on v7 residuals, per city or per climate zone) instead of borrowing v4's widths.
 14. v7 ablations: router without the grid, fixed 54/36/10 mixture, and per-city comparison against the iTransformer expert alone, with several seeds.
-15. Sanity-check the 10-city diurnal-skill figure (Section 19.6) from the CSV and report per-city skill with the exact definition used.
+15. Sanity-check the 10-city diurnal-skill figure (Section 18.6) from the CSV and report per-city skill with the exact definition used.
 16. Delete or archive superseded scripts (`export_v7_to_onnx.py`, `dashboard_v7_india_pro.py`, `dashboard_v7_1_india_live_sky.py`) once nothing references them.
 
 ## 16. Stage 2 plan: scaling to all of India
 
-> **Update (22 November 2026):** a reduced form of Option A below has now been executed: 10 unseen cities (not 20), full-year 2025 only, one Patiala-trained model set, no pooled multi-city training and no leave-cities-out retraining. Results and caveats are in Section 19. The original plan text below is kept exactly as written; where it says nothing has been run, read it as the state on 21 November 2026.
+> **Update (22 November 2026):** a reduced form of Option A below has now been executed: 10 unseen cities (not 20), full-year 2025 only, one Patiala-trained model set, no pooled multi-city training and no leave-cities-out retraining. Results and caveats are in Section 18. The original plan text below is kept exactly as written; where it says nothing has been run, read it as the state on 21 November 2026.
 
 **Status: plan only.** No multi-city data has been fetched and no multi-city model has been trained. Nothing in this section is a result; storage sizes are arithmetic and timings are estimates. It expands Roadmap items 1–2 and the "second site / larger grid" part of item 9 (Section 15).
 
@@ -634,7 +634,7 @@ Neighbouring cities share much of their grid footprint: Patiala, Chandigarh and 
 - Reuse the Open-Meteo → MET Norway fallback fetcher and the 3-hour cache from Section 11, keyed per city, to stay within rate limits across many cities.
 - Per-city benchmark tables, CNN feature-map responses and a regional leaderboard should be read from CSVs, not typed in (Roadmap item 3).
 
-*(Status 22 Nov 2026: a city selector, India map, 11-city live wall and cross-city table now exist in the second dashboard, Section 21. The band there is still borrowed from v4, not calibrated per city.)*
+*(Status 22 Nov 2026: a city selector, India map, 11-city live wall and cross-city table now exist in the second dashboard, Section 20. The band there is still borrowed from v4, not calibrated per city.)*
 
 ### 16.6 Order of work
 
@@ -660,26 +660,19 @@ The v5.3–v5.6 scripts (`run_v5_*.py`) drew synthetic errors and rescaled them 
 
 v6_real (Section 8) is the first real implementation of the dead-zone idea and does not inherit any of these numbers.
 
-## 18. Data attribution and citation
-
-- Weather data: Open-Meteo historical and forecast APIs (CC BY 4.0). Historical values are derived from the ERA5 reanalysis, which contains modified Copernicus Climate Change Service information (ECMWF). *(Added: the 2025 data for the 10 cross-city sites and the live city snapshots also come from Open-Meteo.)*
-- Fallback forecasts in the dashboard: MET Norway Locationforecast 2.0 (credit MET Norway; check their current licence and terms of service).
-- Hardware and stack: PyTorch on an RTX 4050 (6 GB). *(Added: ONNX Runtime for CPU inference; Plotly and Streamlit for the dashboards.)*
-- If you use this work, please cite the repository: Prakhar Tiwari, AeroFuse-Weather-AI (2026), github.com/prakhart056-student/AeroFuse-Weather-AI.
-
 ---
 
 # Additions (22 November 2026)
 
-## 19. Zero-shot cross-city validation (v7)
+## 18. Zero-shot cross-city validation (v7)
 
 Script: `src/evaluation/run_v7_cross_city_validation.py`. Writes checkpoints to `models/v7_cross_city/`, city caches to `data/raw/cross_city_2025/`, results to `results/v7_cross_city/` and a figure to `results/figures/v7_cross_city/`.
 
-### 19.1 What "zero-shot" means here
+### 18.1 What "zero-shot" means here
 
 All networks and scalers are fitted **only on Patiala training data** (2019-01-01 to 2023-11-25, 42,956 raw hours). The frozen models are then applied, with no fine-tuning, to the full year 2025 of ten other cities. The router is trained on Patiala's validation split with the experts frozen. Target-city data is used only for scoring (and, in the anomaly block, for a per-cell mean; see 19.4).
 
-### 19.2 The ten unseen cities
+### 18.2 The ten unseen cities
 
 Chosen to cover major Indian climate regimes and to keep each ±1° grid footprint from overlapping Patiala's or each other's (centres more than 2° apart in latitude or longitude). Distances are approximate, as listed in the script.
 
@@ -698,7 +691,7 @@ Chosen to cover major Indian climate regimes and to keep each ±1° grid footpri
 
 Per city, the script downloads hourly 2025 data (UTC): the 12 local variables at the city centre and the six grid variables on a 5 × 5 grid at 0.5° spacing (one batched 25-point archive call), builds the same 19 local features as Patiala, and caches the result as a compressed `.npz`. Each city yields 8,713 windows (8,760 hours minus 47). Cities share no grid footprint with each other or with Patiala by construction, so they are not independent in weather (same days) but they are in space.
 
-### 19.3 Design for transfer and outputs
+### 18.3 Design for transfer and outputs
 
 **Residual forecasting.** The v7 models predict T_{t+h} = T_t + ΔT̂_{t+h}, where T_t is the last observed temperature in the window. This removes most of the climate mean offset between, say, Srinagar and Chennai while keeping evaluation in °C.
 
@@ -726,7 +719,7 @@ Recipe: Huber loss, AdamW (lr 1e-3, weight decay 1e-4), cosine schedule, 12 epoc
 | results/figures/v7_cross_city/fig_v7_india_zero_shot_generalization.png | Bar chart per city and skill-vs-distance scatter |
 | models/v7_cross_city/*.pt | Four Patiala-only checkpoints (git-ignored) |
 
-### 19.4 Caveats specific to v7
+### 18.4 Caveats specific to v7
 
 1. **Anomaly block normalisation is non-causal and differs from live serving.** In training and scoring, channels 6–11 subtract a per-cell mean taken over the whole array passed to the function (all 7 years for Patiala; the whole of 2025 for each city). That uses information from the evaluated period. In the live dashboard the same channels subtract the spatial mean of the single current snapshot. The two are different quantities, so live inputs are not the same kind of feature as training inputs for those six channels.
 2. **Per-city climatology is used for the unseen cities** (the 2025 per-cell mean), so the result is zero-shot in the network weights and Patiala-fitted scalers, not in the climatology (this is the distinction Section 16.4 asked to be reported).
@@ -734,15 +727,15 @@ Recipe: Huber loss, AdamW (lr 1e-3, weight decay 1e-4), cosine schedule, 12 epoc
 4. **Targets are reanalysis** (Section 14).
 5. **Not comparable with Sections 7–8.** Different model code, different formulation (residual), different test window set for non-Patiala cities.
 
-### 19.5 The router is close to a fixed mixture
+### 18.5 The router is close to a fixed mixture
 
 Taking the code's priors (1.25, 0.85, −0.40) and the ±0.20 bound on the tanh adjustment, the softmax weights sit near 54 % iTransformer, 36 % 1D-CNN and 10 % 2D-CNN, and the adjustment can only shift them modestly. This is arithmetic from the code, not a measured result; the measured values are in `Mean_2D_CNN_Router_Weight`. The practical reading is that v7's behaviour is mostly that of a weighted ensemble of three experts, the same limitation noted for v4 in Section 6. Without a grid-free version of the same router, an improvement over the iTransformer expert should not be attributed to spatial information.
 
-### 19.6 Headline numbers and how to read them
+### 18.6 Headline numbers and how to read them
 
 ![v7 zero-shot cross-city generalisation across 10 unseen Indian cities](results/figures/v7_cross_city/fig_v7_india_zero_shot_generalization.png)
 
-*Left: 24-hour test RMSE per city for the diurnal baseline, 1D-CNN, iTransformer and AeroFuse-v7 (Patiala is the reference column). Right: AeroFuse-v7 skill against the diurnal rule versus distance from Patiala, with Patiala's skill as a dashed line. Written by `run_v7_cross_city_validation.py`. It shows per-city scores from one seed and one year; it does not show that the router, rather than the experts, drives any gain (Section 19.5), and the skill values should be checked against the CSV (below).*
+*Left: 24-hour test RMSE per city for the diurnal baseline, 1D-CNN, iTransformer and AeroFuse-v7 (Patiala is the reference column). Right: AeroFuse-v7 skill against the diurnal rule versus distance from Patiala, with Patiala's skill as a dashed line. Written by `run_v7_cross_city_validation.py`. It shows per-city scores from one seed and one year; it does not show that the router, rather than the experts, drives any gain (Section 18.5), and the skill values should be checked against the CSV (below).*
 
 The dashboard KPI card read, at the time of writing: **10-city mean AeroFuse-v7 RMSE 1.953 °C** and **mean squared-error skill +74.6 % against the diurnal rule**. Treat both as provisional:
 
@@ -752,7 +745,7 @@ The dashboard KPI card read, at the time of writing: **10-city mean AeroFuse-v7 
 
 **Safe to say:** frozen Patiala-trained models were scored on ten unseen Indian cities for the full year 2025 with no fine-tuning, with per-city MAE/RMSE/skill and HAC-corrected comparisons against the iTransformer expert. **Do not say:** that grid-conditioned routing is what makes the transfer work, that results hold for arbitrary Indian locations, or that the headline skill is established before it is checked.
 
-## 20. Live ONNX inference (v7.1 export)
+## 19. Live ONNX inference (v7.1 export)
 
 Script: `src/evaluation/export_v7_1_onnx_safe.py` (the earlier `export_v7_to_onnx.py` fails; see below).
 
@@ -766,7 +759,7 @@ Script: `src/evaluation/export_v7_1_onnx_safe.py` (the earlier `export_v7_to_onn
 
 **Accurate wording for the live feature:** "The dashboard runs frozen, Patiala-trained neural networks live (CPU ONNX) on the last 24 hours of API data to produce a next-24-hour forecast for the selected city, and plots it against the operational NWP forecast." Do **not** describe the live curve as validated or as more accurate than NWP: it is unscored, its inputs come from a different product than the training data, and the "24 h mean divergence vs NWP" shown in the app is a distance between two forecasts, not an error against observations.
 
-## 21. Second dashboard (v7.2)
+## 20. Second dashboard (v7.2)
 
 File: `app/dashboard_v7_2_live_onnx.py`. Keeps `dashboard_final_patiala.py` untouched. Run with `streamlit run app/dashboard_v7_2_live_onnx.py`. Live app (Streamlit Community Cloud): https://aerofuse-weather-ai-3b3mswfq9cmlatrw7jxv7b.streamlit.app/ — covers Patiala plus the 10 unseen cities and introduces the zero-shot cross-city validation (Tab 2).
 
@@ -788,7 +781,7 @@ File: `app/dashboard_v7_2_live_onnx.py`. Keeps `dashboard_final_patiala.py` unto
 
 **Dashboard versions.** `dashboard_final_patiala.py` (original, Section 11) → `dashboard_v7_india_pro.py` (glass UI, India map) → `dashboard_v7_1_india_live_sky.py` (animated skies, 11-city wall, no ONNX) → `dashboard_v7_2_live_onnx.py` (current). The two middle files are superseded.
 
-## 22. Deployment and version control
+## 21. Deployment and version control
 
 **Cloud dependencies.** `requirements.txt` for Streamlit Community Cloud (no PyTorch):
 
@@ -829,3 +822,12 @@ git push origin main
 If the rebase stops with a conflict, Git names the file; resolve it, `git add` it and run `git rebase --continue` (or `git rebase --abort` to go back). Avoid `git push --force` unless you intend to overwrite what is on GitHub.
 
 **Point the cloud app at the new dashboard.** In Streamlit Community Cloud, set the app's main file path to `app/dashboard_v7_2_live_onnx.py` (or deploy it as a second app and keep the original URL on `dashboard_final_patiala.py`).
+
+---
+
+## 22. Data attribution and citation
+
+- Weather data: Open-Meteo historical and forecast APIs (CC BY 4.0). Historical values are derived from the ERA5 reanalysis, which contains modified Copernicus Climate Change Service information (ECMWF). *(Added: the 2025 data for the 10 cross-city sites and the live city snapshots also come from Open-Meteo.)*
+- Fallback forecasts in the dashboard: MET Norway Locationforecast 2.0 (credit MET Norway; check their current licence and terms of service).
+- Hardware and stack: PyTorch on an RTX 4050 (6 GB). *(Added: ONNX Runtime for CPU inference; Plotly and Streamlit for the dashboards.)*
+- If you use this work, please cite the repository: Prakhar Tiwari, AeroFuse-Weather-AI (2026), github.com/prakhart056-student/AeroFuse-Weather-AI.

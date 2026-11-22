@@ -1,5 +1,5 @@
 Comparison,HAC_Lag,Mean_Loss_Diff,HLN_DM_Stat,p_value
-v6_Real vs iTransformer (24h Mean MSE),23,0.07928,2.197,0.028051
-v6_Real vs iTransformer (24h Mean MAE),23,0.01897,2.819,0.00483
-v6_Real vs v4_Router (24h Mean MSE),23,0.06428,3.123,0.001796
-v6_Real vs v4_Router (24h Mean MAE),23,0.03772,6.14,0.0
+v6_Real vs iTransformer (24h Mean MSE),23,0.07925,2.191,0.028469
+v6_Real vs iTransformer (24h Mean MAE),23,0.019,2.824,0.004765
+v6_Real vs v4_Router (24h Mean MSE),23,0.06425,3.128,0.001768
+v6_Real vs v4_Router (24h Mean MAE),23,0.03776,6.145,0.0

@@ -7,3 +7,6 @@ data/processed/*.parquet
 models/*.pt
 models/*.pth
 models/*.pkl
+
+data/raw/cross_city_2025/
+models/v7_cross_city/*.pt

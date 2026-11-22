@@ -1,0 +1,12 @@
+{
+  "Patiala_InDist_RMSE_C": 1.3851,
+  "Unseen_10Cities_Mean_AeroFuse_RMSE_C": 1.9526,
+  "Unseen_10Cities_Mean_iTransformer_RMSE_C": 2.2147,
+  "Unseen_10Cities_Mean_CNN1D_RMSE_C": 2.4116,
+  "Unseen_10Cities_Mean_CNN2D_RMSE_C": 5.7081,
+  "Unseen_10Cities_Mean_Diurnal_RMSE_C": 1.5029,
+  "Unseen_10Cities_Mean_AeroFuse_Skill_Pct": -74.6,
+  "AeroFuse_Wins_Out_of_10_Unseen_Cities": 10,
+  "Best_Transfer_City": "Lucknow",
+  "Hardest_Transfer_City": "Srinagar"
+}
